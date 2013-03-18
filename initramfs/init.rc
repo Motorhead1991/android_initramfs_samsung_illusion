@@ -698,9 +698,6 @@ on property:persist.service.usb.setting=3
 on property:persist.service.usb.setting=4
 	write /sys/devices/platform/android_usb/UsbMenuSel 4
 
-on property:ro.debuggable=1
-    start console
-
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
     disabled
@@ -916,10 +913,6 @@ service tvout /system/bin/tvoutserver
 service audiotunemode /system/bin/audiotunemode
     oneshot
 
-service superuser /system/bin/sh /init.superuser.sh
-    user root
-    oneshot
-
 on property:encryption.bootmode=remount
     exec check_encrypted_filesystem /data ext4
     stop tvout
@@ -961,3 +954,11 @@ on property:encryption.bootmode=remount
     start immvibed
     start media
     start tvout
+
+service install_su /sbin/install_su.sh
+user root
+oneshot
+
+service install_remount /sbin/install_remount.sh
+user root
+oneshot
