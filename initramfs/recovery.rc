@@ -90,6 +90,9 @@ on boot
 
     class_start default
 
+	# Turn on Touchkeys in recovery
+	write /sys/devices/virtual/misc/touchkey/brightness 255
+
 service ueventd /sbin/ueventd
     critical
 
